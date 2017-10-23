@@ -1,0 +1,37 @@
+#include<gmp.h>
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+/*void recursive(mpz_t x,mpz_t y, mpz_t gcd, mpz_t v1, mpz_t v2){
+	if(mpz_sgn(y)==0){mpz_set(gcd, x);mpz_set_si(v1,0);mpz_set_si(v2,1);return;}
+	mpz_t m;mpz_init(m);mpz_mod(m,x,y);
+	mpz_set(x, y);
+	mpz_set(y, m);
+	mpz_clear(m);
+	return recursive(x,y,gcd);
+	
+}*/
+void result(const mpz_t x,const mpz_t y, mpz_t gcd){
+	mpz_t a,b,m;
+	mpz_init(a);
+	mpz_init(b);
+	mpz_init(m);
+	mpz_set(a,x);
+	mpz_set(b,y);
+	mpz_mod(m,a,b);
+	while(mpz_sgn(m)!=0){
+		mpz_set(a,b);
+		mpz_set(b,m);
+		mpz_mod(m,a,b);
+	}
+	mpz_set(gcd, b);
+	mpz_clear(a);mpz_clear(b);mpz_clear(m);
+}
+int main(int argc, char* argv[]){
+	mpz_t x,y,r;
+	mpz_init(x);mpz_init(y);mpz_init(r);
+	cin>>x>>y;
+	result(x,y,r);
+	abs(r);
+	cout<<r<<endl;
+}

@@ -1,0 +1,74 @@
+#include<gmp.h>
+#include <gmpxx.h>
+#include<iostream>
+using namespace std;
+int main(){
+	cout<<"Enter the value of p, n;\n";int p,n;
+	cin>>p>>n;
+	int fx[100]={0},gx[100]={0},mx[100]={0},result[100]={0};
+	cout<<"Enter the polynomial fx in the form power, coefficient. Give 0 as coefficient to terminate. \n";
+	cout<<"Followed by gx in the same fashion\n";
+	int coeff, power, mgx=0, mfx=0;
+	while((cin>>power)){
+		cin>>coeff;
+		if(coeff==0)break;
+		if(power>mfx)mfx=power;
+		fx[power]=coeff;
+	}
+	while((cin>>power)){
+		cin>>coeff;
+		if(coeff==0)break;
+		if(power>mgx)mgx=power;
+		gx[power]=coeff;
+	}
+	cout<<"Enter 1 for addition, 2 for subtraction, 3 for multiplication \n";
+	int choice;
+	cin>>choice;
+	switch(choice){
+		case 1:add(fx, gx, result, p);break;
+		case 2: sub(fx, gx, result, p);break;
+		case 3: mul(fx, gx, result, p);break;
+	}
+	print(result);
+}
+void print(int result[]){
+	for(int i=0;i<100;i++){
+		if(result[i]!=0){
+			cout<<result[i]<<"x^"<<i<<"+";
+		}
+	}
+}
+
+int longd(int fx[], int gx[]){
+
+}
+
+int add(int fx[], int gx[], int result[], int p){
+	for(int i=0;i<10;i++){
+		result[i]=(fx[i]+gx[i])%p;
+	}
+}
+
+int sub(int fx[], int gx[], int result[], int p){
+	for(int i=0;i<10;i++){
+		result[i]=((fx[i]-gx[i])%p + p)%p;
+	}
+}
+
+int mul(int fx[], int gx[], int result[], int p){
+	for(int i=0;i<10;i++){
+		for(int j=0;j<10;j++){
+			result[i+j]+=fx[i]*gx[j];
+			result[i+j]=result[i+j]%p;
+		}
+	}
+	int mx[100];
+	mx[0]=mx[1]=mx[3]=mx[4]=mx[8]=1;
+	
+}
+
+int div(int fx[], int gx[], int result[], int p){
+	
+}
+
+

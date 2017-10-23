@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+#include<gmp.h>
+#include<gmpxx.h>
+using namespace std;
+int main(){
+	unsigned maxPower = 20;	
+	mpz_t p;
+	mpz_t f[maxPower];//f = malloc(sizeof(mpz_t) * maxPower);
+	mpz_t g[maxPower];//g = malloc(sizeof(mpz_t) * maxPower);
+	mpz_t res[maxPower];
+	mpz_init(p);
+	for(int i=0;i<maxPower;i++){
+		mpz_init(f[i]);
+		mpz_init(g[i]);
+		mpz_init(res[i]);
+	}
+	cin>>p;
+	cout<<"\nEnter the coeff, power of f(x). 0 to terminate \n";
+	mpz_t coeff;mpz_init(coeff);
+	int power;
+	while((cin>>coeff)){
+		if(mpz_sgn(coeff)==0)break;
+		cin>>power;
+		mpz_mod(f[power], coeff, p);
+	}
+	cout<<"\nEnter the coeff, power of g(x). 0 to terminate \n";
+	while((cin>>coeff)){
+		if(mpz_sgn(coeff)==0)break;
+		cin>>power;
+		mpz_mod(g[power], coeff, p);
+	}
+	mpz_t val; mpz_init(val);	
+	for(int i = 0;i<maxPower;i++){
+		mpz_add(val, f[i],g[i]);
+		mpz_mod(res[i], val, p);
+		if(mpz_sgn(res[i])!=0)		
+			cout<<res[i]<<"x^"<<i<<"+";			
+	}
+	cout<<endl;	
+}
